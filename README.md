@@ -27,6 +27,7 @@ Acesse o endereço `https://tasklistfront.herokuapp.com/`.
   - Título
   - Descrição
   - Deletar a tarefa
+
   Além de ser possível visualizar a data da última alteração.
   
 ## Instalar e rodar localmente
