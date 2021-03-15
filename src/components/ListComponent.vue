@@ -85,7 +85,6 @@ export default {
       const index = this.tasks.findIndex((element)=>task.id === element.id);
       this.tasks[index].status = reverseStatus;
       updateById(task.id, {status: reverseStatus}).then((resp) => {
-      console.log("🚀 ~ file: ListComponent.vue ~ line 85 ~ updateStatus ~ resp", resp);
         const message = resp.success ? 'Salvo com sucesso' : 'Erro'+resp.message;
         this.$emit('alert', message);
       });
