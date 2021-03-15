@@ -5,9 +5,20 @@
     <v-list flat subheader three-line v-else>
       <v-subheader>Lista de tarefas</v-subheader>
       <v-list-item-group v-model="settings" multiple active-class="">
+        <v-list-item v-if="!isLoading && !filtredTasks.length" >
+          <v-list-item-content>
+            <v-list-item-title>
+              Ops. Não há tarefas.
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              Clique no botão "mais" para criar uma.
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item
           v-for="task in filtredTasks"
           :key="task.id"
+          v-else
         >
           <v-list-item-action>
             <div class="pt-2">
