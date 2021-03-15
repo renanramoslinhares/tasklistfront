@@ -36,10 +36,16 @@
               ></v-col>
               <v-col cols="6">
                 <v-text-field
-                  v-model="created_at"
-                  label="Criado em minha/data/ano"
+                  v-if="updated_at !== 'null'"
+                  :value="moment(updated_at).format('DD/MM/YYYY [às] hh[h]mm')"
+                  label="Editado em"
                   disabled
-                  name="create"
+                ></v-text-field>
+                <v-text-field
+                  v-else
+                  :value="moment(created_at).format('DD/MM/YYYY [às] hh[h]mm')"
+                  label="Criado em"
+                  disabled
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -64,10 +70,12 @@
 </template>
 <script>
 import { readById, deleteById, updateById } from "@/services/taskService";
+import moment from 'moment';
 
 export default {
   name: "FullModalComponent",
   data: () => ({
+    moment,
     status: "",
     title: "",
     description: "",
