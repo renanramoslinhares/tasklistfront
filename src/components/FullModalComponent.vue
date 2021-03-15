@@ -7,13 +7,16 @@
       transition="dialog-bottom-transition"
     >
       <v-card>
-        <v-toolbar dark color="primary">
+        <v-toolbar dark color="deep-purple">
           <v-btn icon dark @click="$emit('input', false)">
             <v-icon>mdi-arrow-left</v-icon>
           </v-btn>
           <v-toolbar-title>Editar tarefa</v-toolbar-title>
           <v-spacer></v-spacer>
           <v-toolbar-items>
+            <v-btn icon @click="deleteTask(idEdit)" title="Deletar tarefa">
+              <v-icon>mdi-delete</v-icon>
+            </v-btn>
             <v-btn dark text @click="submit()">
               Salvar
             </v-btn>
@@ -26,7 +29,7 @@
                 <v-switch
                   v-model="status"
                   label="Tarefa concluída"
-                  color="success"
+                  color="deep-purple"
                   value="done"
                   hide-details
                 ></v-switch
@@ -53,9 +56,6 @@
               label="Descrição"
               @keyup.enter="submit()"
             ></v-textarea>
-            <v-btn color="error" class="mr-4" @click="deleteTask(idEdit)">
-              Deletar tarefa
-            </v-btn>
           </v-form>
         </v-col>
       </v-card>
@@ -86,20 +86,18 @@ export default {
         this.close();
       });
     },
-    submit() {
-      updateById(this.idEdit, {
+    async submit() {
+      const resp = await updateById(this.idEdit, {
         status: this.status === "done" ? this.status : "open",
         title: this.title,
         description: this.description,
         created_at: this.created_at,
         done_at: this.done_at,
-      }).then((resp) => {
-        this.$emit(
-          "alert",
-          resp.success ? "Atualizado com sucesso." : "Erro: ".resp.message
-        );
-        this.close();
       });
+      if(resp.success) this.close();
+
+      const message = resp.success ? "Atualizado com sucesso." : "Erro: ".resp.message
+      this.$emit("alert", message);
     },
     close() {
       this.$emit("input", false);

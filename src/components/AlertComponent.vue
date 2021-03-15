@@ -1,6 +1,6 @@
 <template>
   <div class="text-center ma-2">
-    <v-snackbar color="info" class="text--indigo" v-model="isOpen">
+    <v-snackbar color="purple" class="text--indigo" v-model="isOpen">
       <v-btn color="white" icon @click="isOpen = false">
         <v-icon>mdi-close</v-icon>
       </v-btn>

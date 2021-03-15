@@ -3,8 +3,7 @@
     <v-card class="mx-auto col-12" flat max-width="540">
       <v-app-bar color="deep-purple accent-4 mb-10" dark prominent>
         <v-app-bar-title class="mb-10">
-          <v-icon>mdi-checkbox-marked-outline</v-icon>
-          <span>TaskListApp</span>
+          <span class="text-h4"><v-icon>mdi-checkbox-marked-outline</v-icon> TaskList</span>
         </v-app-bar-title>
 
         <PlusButtonComponent
@@ -45,7 +44,6 @@ import { readAll } from "@/services/taskService";
 
 export default {
   name: "App",
-
   components: {
     ListComponent,
     FullModalComponent,

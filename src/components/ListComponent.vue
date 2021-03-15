@@ -38,6 +38,7 @@
               {{ task.title }}
             </v-list-item-title>
             <v-list-item-subtitle
+              v-if="task.description"
               :class="task.status === 'done'
                 ? 'text-decoration-line-through text--disabled' : ''"
             >

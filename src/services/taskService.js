@@ -14,7 +14,7 @@ const request = (path = "/", method = "GET", body) => {
 const normalizeBody = (objectBody) =>
   Object.entries(objectBody)
     .reduce((accumulator, current) => {
-      accumulator.push(current[0] + "=" + encodeURIComponent(current[1]));
+      accumulator.push(current[0] + "=" + current[1]);
       return accumulator;
     }, [])
     .join("&");
@@ -22,11 +22,20 @@ const normalizeBody = (objectBody) =>
 export const create = (title) =>
   request("/task/", "POST", normalizeBody({ title }));
 
-export const readAll = () => request("/tasks/");
+export const readAll = () => request("/tasks/").then(tasks => tasks.map(task => {
+  if(task.description === 'null') task.description = null;
+  return task;
+}));
+  
 
-export const readById = (id) => request(`/task/${id}`);
+export const readById = (id) => request(`/task/${id}`).then(task => {
+  if(task.description === 'null') task.description = null;
+  return task;
+});
 
-export const updateById = (id, objectBody) =>
-  request(`/task/${id}`, "PUT", normalizeBody(objectBody));
+export const updateById = (id, objectBody) => {
+  objectBody.description = objectBody.description.replace(/(?:\r\n|\r|\n)/g, ' ');
+  return request(`/task/${id}`, "PUT", normalizeBody(objectBody));
+}
 
 export const deleteById = (id) => request(`/task/${id}`, "DELETE");
